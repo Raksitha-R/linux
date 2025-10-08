@@ -1,0 +1,30 @@
+NFS
+On both vm’s :
+sudo apt update
+sudo apt install nfs-kernel-server nfs-common
+Ip a
+
+On VM1: 
+sudo mkdir -p /srv/nfsshare
+sudo chown nobody:nogroup /srv/nfsshare
+sudo chmod 777 /srv/nfsshare
+sudo nano /etc/exports
+Add inside the file:
+srv/nfsshare <VM2_IP>(rw,sync,no_subtree_check)
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+sudo ufw allow from <VM1 ip> to any port nfs
+
+On VM2:
+
+sudo mkdir -p /mnt/nfs_vm1
+sudo mount <VM1_IP>:/srv/nfsshare /mnt/nfs_vm1
+cd /mnt/nfs_vm1
+echo "Hello from VM2" > testfile.txt
+
+On VM1:
+cat /srv/nfsshare/testfile.txt
+echo “edited by vm1” >testfile.txt
+
+On VM2:
+cat testfile.txt
