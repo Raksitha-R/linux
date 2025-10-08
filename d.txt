@@ -1,0 +1,70 @@
+sudo apt install bridge-utils
+brctl addbr br-cloud
+brctl addif br-cloud eno1
+ifconfig eno1 0
+ifconfig br-cloud 10.0.2.15 netmask 255.255.255.0
+route add default gw 10.0.2.15 dev br-cloud
+
+route -n
+brctl show
+
+#Open vSwitch
+
+sudo apt update
+sudo apt install openvswitch-switch -y
+sudo systemctl start openvswitch-switch 
+sudo systemctl enable openvswitch-switch
+sudo ovs-vsctl add-br ovs-br0x
+sudo ovs-vsctl add-port ovs-br0 enp0s3
+sudo ovs-vsctl show
+
+
+
+
+Vm-vm ping
+Ip a
+Ping ip
+Sudo apt update
+Sudo apt install openssh-server -y
+Sudo systemctl start ssh
+Sudo systemctl status ssh
+Create a file
+Nano file
+Scp file_name tce@ipofvm2:/home/tce
+Cat file (vm2)
+
+
+sudo adduser stack
+sudo usermod -aG sudo stack
+su - stack 
+Sudo apt install git
+Git clone link
+cd devstack
+Nano local.conf
+./stack.sh
+
+
+Sudo su
+ls /media
+cd /media/sf_d/
+Ls /media/sf_d/
+nano devi.txt
+
+
+
+Sudo -s
+Apt install lvm2
+Pvdisplay
+Lvdisplay
+Vgdisplay
+Fdisk -l
+pvcreate /dev/sdb
+vgcreate cloud-vg /dev/sdb
+lvcreate -L 10G -n data cloud-vg
+mkfs.ext4 /dev/cloud-vg/data
+mkdir /mnt/data
+mount /dev/cloud-vg/data /mnt/data
+df -h
+lvresize --size +1G cloud-vg/data
+resize2fs /dev/mapper/cloud--vg-data
+df -h
